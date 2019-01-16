@@ -9,6 +9,8 @@ object FunctionApp {
     //默认参数大的方法调用可以省略参数,但括号不能省略
     say()
     say("zhang")
+
+    println(sum(1,3,5,7))
   }
 
 
@@ -31,6 +33,15 @@ object FunctionApp {
   //默认参数的方法,Unit表示无返回值
   def say(name:String = "li"): Unit ={
     println(name)
+  }
+
+  //可变参数
+  def sum(numbers:Int*):Int={
+    var result = 0
+    for(number <- numbers){
+      result += number
+    }
+    result
   }
 
 }
