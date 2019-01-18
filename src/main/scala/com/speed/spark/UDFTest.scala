@@ -1,5 +1,6 @@
 package com.speed.spark
 
+import com.speed.spark.ChangeTest.parseDouble
 import com.speed.spark.RDDTest.getClass
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.mllib.stat.Statistics
@@ -96,14 +97,16 @@ class AverageSal extends UserDefinedAggregateFunction{
 
 }
 
+
+//计算方差的UDAF
 class AverageSal2 extends UserDefinedAggregateFunction{
 
 
   // 输入数据
-  override def inputSchema: StructType = StructType( StructField("salary",StringType) :: Nil )
+  override def inputSchema: StructType = StructType( StructField("vs",StringType) :: Nil )
 
   // 每一个分区中的 共享变量
-  override def bufferSchema: StructType = StructType( StructField("sum",StringType)  :: Nil )
+  override def bufferSchema: StructType = StructType( StructField("vs_list",StringType)  :: Nil )
 
   // 表示UDAF的输出类型
   override def dataType: DataType = StringType
@@ -125,7 +128,6 @@ class AverageSal2 extends UserDefinedAggregateFunction{
       buffer(0) = buffer.getString(0) + "," + input.getString(0)
     }
 
-
   }
 
   // 将每一个分区的输出 合并 形成最后的数据
@@ -138,10 +140,22 @@ class AverageSal2 extends UserDefinedAggregateFunction{
   // 给出计算结果
   override def evaluate(buffer: Row): Any = {
 
-    var speed_list = scala.collection.mutable.ListBuffer[Any]();
+    var speed_list = scala.collection.mutable.ListBuffer[Double]();
+
+    //将String转Double
+    def parseDouble(s: String): Option[Double] = try { Some(s.toDouble) } catch { case _ => None }
+
+    var item_double:Double = 0
 
     for(item <- buffer.getString(0).split(",")){
-      speed_list += item
+
+      item_double = parseDouble(item) match {
+        case Some(t)=>t
+        case None=>0
+      }
+
+      speed_list += item_double
+
     }
 
     val sparkConf = new SparkConf().setAppName("sparksql").setMaster("local[*]")
@@ -154,7 +168,7 @@ class AverageSal2 extends UserDefinedAggregateFunction{
     val sc = spark.sparkContext
 
     val speed_rdd = sc.parallelize(speed_list);
-    val data1 = speed_rdd.map(f => Vectors.dense(f.asInstanceOf[Double]));
+    val data1 = speed_rdd.map(f => Vectors.dense(f));
     val stat = Statistics.colStats(data1);
     val variance = stat.variance.apply(0);
 
