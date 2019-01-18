@@ -141,7 +141,7 @@ class AverageSal2 extends UserDefinedAggregateFunction{
     var speed_list = scala.collection.mutable.ListBuffer[Any]();
 
     for(item <- buffer.getString(0).split(",")){
-      speed_list += item.as
+      speed_list += item
     }
 
     val sparkConf = new SparkConf().setAppName("sparksql").setMaster("local[*]")
