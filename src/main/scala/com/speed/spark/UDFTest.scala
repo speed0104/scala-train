@@ -37,7 +37,7 @@ object UDFTest {
         val employeeDF = spark.read.json("D:/WorkSpace/scala/scala-train/employees.json")
         employeeDF.createOrReplaceTempView("employee")
         //注册UDAF函数
-        spark.udf.register("average",new AverageSal2)
+        spark.udf.register("average",new AverageVariance)
         spark.sql("select average(salary) from employee group by name").show()
 
 
@@ -99,7 +99,7 @@ class AverageSal extends UserDefinedAggregateFunction{
 
 
 //计算方差的UDAF
-class AverageSal2 extends UserDefinedAggregateFunction{
+class AverageVariance extends UserDefinedAggregateFunction{
 
 
   // 输入数据
