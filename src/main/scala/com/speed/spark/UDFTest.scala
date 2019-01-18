@@ -44,7 +44,7 @@ object UDFTest {
     employeeDF.createOrReplaceTempView("employee")
     //注册UDAF函数
     spark.udf.register("average", new AverageVariance())
-    spark.sql("select average(salary) from employee group by name").show()
+    spark.sql("select name,average(salary) from employee group by name").show()
 
 
     spark.stop
@@ -122,7 +122,7 @@ class AverageVariance extends UserDefinedAggregateFunction {
   override def bufferSchema: StructType = StructType(StructField("vs_list", StringType) :: Nil)
 
   // 表示UDAF的输出类型
-  override def dataType: DataType = StringType
+  override def dataType: DataType = DoubleType
 
   // 表示如果有相同的输入是否会存在相同的输出，如果是则true
   override def deterministic: Boolean = true
@@ -190,9 +190,11 @@ class AverageVariance extends UserDefinedAggregateFunction {
     val stat = Statistics.colStats(data1);
     val variance = stat.variance.apply(0);
 
-    println(variance)
 
-    buffer.getString(0)
+//    buffer.getString(0)
+
+    variance
+
   }
 
 }
