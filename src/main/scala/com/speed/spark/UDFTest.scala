@@ -14,34 +14,40 @@ import scala.collection.mutable.ListBuffer
 object UDFTest {
 
 
-
   def main(args: Array[String]): Unit = {
 
-        val sparkConf = new SparkConf().setAppName("sparksql").setMaster("local[*]")
-
-        val spark = SparkSession
-          .builder()
-          .config(sparkConf)
-          .getOrCreate()
-
-        val sc = spark.sparkContext
-
-//        val peoploDF = spark.read.json("D:/WorkSpace/scala/scala-train/peoplo.json")
-//        peoploDF.select("name").show()
-//        peoploDF.createOrReplaceTempView("people")
-//        //注册UDF函数
-//        spark.udf.register("add",(x:String)=>"A:" + x)
-//        //直接在SQL中使用
-//        spark.sql("select add(name) from people").show()
-
-        val employeeDF = spark.read.json("D:/WorkSpace/scala/scala-train/employees.json")
-        employeeDF.createOrReplaceTempView("employee")
-        //注册UDAF函数
-        spark.udf.register("average",new AverageVariance)
-        spark.sql("select average(salary) from employee group by name").show()
 
 
-        spark.stop
+    val sparkConf = new SparkConf().setAppName("sparksql").setMaster("local[*]")
+
+
+    val spark = SparkSession
+      .builder()
+      .config(sparkConf)
+      .getOrCreate()
+
+    val sc = spark.sparkContext
+
+
+
+
+    //        val peoploDF = spark.read.json("D:/WorkSpace/scala/scala-train/peoplo.json")
+    //        peoploDF.select("name").show()
+    //        peoploDF.createOrReplaceTempView("people")
+    //        //注册UDF函数
+    //        spark.udf.register("add",(x:String)=>"A:" + x)
+    //        //直接在SQL中使用
+    //        spark.sql("select add(name) from people").show()
+
+
+    val employeeDF = spark.read.json("D:/WorkSpace/scala/scala-train/employees.json")
+    employeeDF.createOrReplaceTempView("employee")
+    //注册UDAF函数
+    spark.udf.register("average", new AverageVariance())
+    spark.sql("select average(salary) from employee group by name").show()
+
+
+    spark.stop
 
   }
 
@@ -49,14 +55,14 @@ object UDFTest {
 }
 
 
-class AverageSal extends UserDefinedAggregateFunction{
+class AverageSal extends UserDefinedAggregateFunction {
 
 
   // 输入数据
-  override def inputSchema: StructType = StructType( StructField("salary",LongType) :: Nil )
+  override def inputSchema: StructType = StructType(StructField("salary", LongType) :: Nil)
 
   // 每一个分区中的 共享变量
-  override def bufferSchema: StructType = StructType( StructField("sum",LongType) :: StructField("count",IntegerType) :: Nil )
+  override def bufferSchema: StructType = StructType(StructField("sum", LongType) :: StructField("count", IntegerType) :: Nil)
 
   // 表示UDAF的输出类型
   override def dataType: DataType = DoubleType
@@ -99,14 +105,21 @@ class AverageSal extends UserDefinedAggregateFunction{
 
 
 //计算方差的UDAF
-class AverageVariance extends UserDefinedAggregateFunction{
+class AverageVariance extends UserDefinedAggregateFunction {
 
+  var sqlContext: SQLContext = _
+
+  def this(sqlContext: SQLContext) {
+    this()
+    println(sqlContext)
+    this.sqlContext = sqlContext
+  }
 
   // 输入数据
-  override def inputSchema: StructType = StructType( StructField("vs",StringType) :: Nil )
+  override def inputSchema: StructType = StructType(StructField("vs", StringType) :: Nil)
 
   // 每一个分区中的 共享变量
-  override def bufferSchema: StructType = StructType( StructField("vs_list",StringType)  :: Nil )
+  override def bufferSchema: StructType = StructType(StructField("vs_list", StringType) :: Nil)
 
   // 表示UDAF的输出类型
   override def dataType: DataType = StringType
@@ -122,9 +135,9 @@ class AverageVariance extends UserDefinedAggregateFunction{
 
   // 每一个分区中的每一条数据聚合的时候需要调用该方法
   override def update(buffer: MutableAggregationBuffer, input: Row): Unit = {
-    if(buffer(0) == ""){
+    if (buffer(0) == "") {
       buffer(0) = input.getString(0)
-    }else{
+    } else {
       buffer(0) = buffer.getString(0) + "," + input.getString(0)
     }
 
@@ -143,29 +156,34 @@ class AverageVariance extends UserDefinedAggregateFunction{
     var speed_list = scala.collection.mutable.ListBuffer[Double]();
 
     //将String转Double
-    def parseDouble(s: String): Option[Double] = try { Some(s.toDouble) } catch { case _ => None }
+    def parseDouble(s: String): Option[Double] = try {
+      Some(s.toDouble)
+    } catch {
+      case _ => None
+    }
 
-    var item_double:Double = 0
+    var item_double: Double = 0
 
-    for(item <- buffer.getString(0).split(",")){
+    for (item <- buffer.getString(0).split(",")) {
 
       item_double = parseDouble(item) match {
-        case Some(t)=>t
-        case None=>0
+        case Some(t) => t
+        case None => 0
       }
 
       speed_list += item_double
 
     }
 
-    val sparkConf = new SparkConf().setAppName("sparksql").setMaster("local[*]")
 
-    val spark = SparkSession
-      .builder()
-      .config(sparkConf)
-      .getOrCreate()
+        val sparkConf = new SparkConf().setAppName("sparksql").setMaster("local[*]")
 
-    val sc = spark.sparkContext
+        val spark = SparkSession
+          .builder()
+          .config(sparkConf)
+          .getOrCreate()
+
+        val sc = spark.sparkContext
 
     val speed_rdd = sc.parallelize(speed_list);
     val data1 = speed_rdd.map(f => Vectors.dense(f));
