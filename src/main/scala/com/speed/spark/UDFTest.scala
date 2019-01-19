@@ -107,14 +107,6 @@ class AverageSal extends UserDefinedAggregateFunction {
 //计算方差的UDAF
 class AverageVariance extends UserDefinedAggregateFunction {
 
-  var sqlContext: SQLContext = _
-
-  def this(sqlContext: SQLContext) {
-    this()
-    println(sqlContext)
-    this.sqlContext = sqlContext
-  }
-
   // 输入数据
   override def inputSchema: StructType = StructType(StructField("vs", StringType) :: Nil)
 
@@ -198,3 +190,4 @@ class AverageVariance extends UserDefinedAggregateFunction {
   }
 
 }
+
