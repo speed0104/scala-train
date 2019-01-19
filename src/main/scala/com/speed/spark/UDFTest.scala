@@ -147,21 +147,16 @@ class AverageVariance extends UserDefinedAggregateFunction {
 
     var speed_list = scala.collection.mutable.ListBuffer[Double]();
 
-    //将String转Double
-    def parseDouble(s: String): Option[Double] = try {
-      Some(s.toDouble)
-    } catch {
-      case _ => None
-    }
-
     var item_double: Double = 0
 
     for (item <- buffer.getString(0).split(",")) {
 
-      item_double = parseDouble(item) match {
-        case Some(t) => t
-        case None => 0
-      }
+//      item_double = parseDouble(item) match {
+//        case Some(t) => t
+//        case None => 0
+//      }
+
+      item_double = parseDouble(item).getOrElse(0)
 
       speed_list += item_double
 
@@ -187,6 +182,13 @@ class AverageVariance extends UserDefinedAggregateFunction {
 
     variance
 
+  }
+
+  //将String转Double
+  def parseDouble(s: String): Option[Double] = try {
+    Some(s.toDouble)
+  } catch {
+    case _ => None
   }
 
 }
