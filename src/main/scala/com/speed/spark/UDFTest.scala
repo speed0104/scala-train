@@ -40,7 +40,7 @@ object UDFTest {
     //        spark.sql("select add(name) from people").show()
 
 
-    val employeeDF = spark.read.json("D:/WorkSpace/scala/scala-train/employees.json")
+    val employeeDF = spark.read.json("../scala-train/employees.json")
     employeeDF.createOrReplaceTempView("employee")
     //注册UDAF函数
     spark.udf.register("average", new AverageVariance())
