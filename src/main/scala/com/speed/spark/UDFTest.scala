@@ -108,10 +108,10 @@ class AverageSal extends UserDefinedAggregateFunction {
 class AverageVariance extends UserDefinedAggregateFunction {
 
   // 输入数据
-  override def inputSchema: StructType = StructType(StructField("vs", StringType) :: Nil)
+  override def inputSchema: StructType = StructType(StructField("vs", DoubleType) :: Nil)
 
   // 每一个分区中的 共享变量
-  override def bufferSchema: StructType = StructType(StructField("vs_list", StringType) :: Nil)
+  override def bufferSchema: StructType = StructType(StructField("vs_list", ArrayType(DoubleType)) :: Nil)
 
   // 表示UDAF的输出类型
   override def dataType: DataType = DoubleType
@@ -121,24 +121,21 @@ class AverageVariance extends UserDefinedAggregateFunction {
 
   // 初始化每一个分区中的 共享变量
   override def initialize(buffer: MutableAggregationBuffer): Unit = {
-    buffer(0) = ""
+    buffer(0) = Nil
 
   }
 
   // 每一个分区中的每一条数据聚合的时候需要调用该方法
   override def update(buffer: MutableAggregationBuffer, input: Row): Unit = {
-    if (buffer(0) == "") {
-      buffer(0) = input.getString(0)
-    } else {
-      buffer(0) = buffer.getString(0) + "," + input.getString(0)
-    }
 
+      buffer(0) = buffer.getSeq[Double](0) :+ input.getDouble(0)
   }
 
   // 将每一个分区的输出 合并 形成最后的数据
   override def merge(buffer1: MutableAggregationBuffer, buffer2: Row): Unit = {
-    // 合并总的工资
-    buffer1(0) = buffer1.getString(0) + buffer2.getString(0)
+    val buf1 = buffer1.getSeq[Double](0)
+    val buf2 = buffer2.getSeq[Double](0)
+    buffer1(0) = buf1 ++ buf2
 
   }
 
@@ -147,48 +144,24 @@ class AverageVariance extends UserDefinedAggregateFunction {
 
     var speed_list = scala.collection.mutable.ListBuffer[Double]();
 
-    var item_double: Double = 0
+    for (item <- buffer.getSeq[Double](0)) speed_list += item
 
-    for (item <- buffer.getString(0).split(",")) {
+    val sparkConf = new SparkConf().setAppName("sparksql").setMaster("local[*]")
 
-//      item_double = parseDouble(item) match {
-//        case Some(t) => t
-//        case None => 0
-//      }
+    val spark = SparkSession
+      .builder()
+      .config(sparkConf)
+      .getOrCreate()
 
-      item_double = parseDouble(item).getOrElse(0)
-
-      speed_list += item_double
-
-    }
-
-
-        val sparkConf = new SparkConf().setAppName("sparksql").setMaster("local[*]")
-
-        val spark = SparkSession
-          .builder()
-          .config(sparkConf)
-          .getOrCreate()
-
-        val sc = spark.sparkContext
+    val sc = spark.sparkContext
 
     val speed_rdd = sc.parallelize(speed_list);
     val data1 = speed_rdd.map(f => Vectors.dense(f));
     val stat = Statistics.colStats(data1);
     val variance = stat.variance.apply(0);
 
-
-//    buffer.getString(0)
-
     variance
 
-  }
-
-  //将String转Double
-  def parseDouble(s: String): Option[Double] = try {
-    Some(s.toDouble)
-  } catch {
-    case _ => None
   }
 
 }
