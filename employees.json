@@ -11,3 +11,7 @@
 {"name":"berta","salary":7}
 {"name":"berta","salary":8}
 {"name":"berta","salary":9}
+{"name":"speed1","salary":null}
+{"name":"speed2","salary":None}
+{"name":"speed3","salary":""}
+
