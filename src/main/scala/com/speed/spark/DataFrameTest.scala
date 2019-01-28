@@ -19,13 +19,22 @@ object DataFrameTest {
 
     val employeeDF = spark.read.json("../scala-train/employees.json")
 
-    employeeDF.show()
+    employeeDF.printSchema()
+
+//    employeeDF.show()
+//    employeeDF.select("name").show()
+//    employeeDF.select(employeeDF.col("name"),(employeeDF.col("salary") + 100).as("more")).show()
+//    employeeDF.filter(employeeDF.col("salary") > 5).show()
+    employeeDF.groupBy("salary").count().show()
 
 
 
 
 
 
+
+
+    spark.stop()
   }
 
 

@@ -1,6 +1,6 @@
-{"name":"micheal","salary":60}
-{"name":"andy","salary":70}
-{"name":"andy","salary":90}
+{"name":"micheal","salary":6}
+{"name":"andy","salary":7}
+{"name":"andy","salary":9}
 {"name":"berta","salary":0}
 {"name":"berta","salary":1}
 {"name":"berta","salary":2}
@@ -11,7 +11,5 @@
 {"name":"berta","salary":7}
 {"name":"berta","salary":8}
 {"name":"berta","salary":9}
-{"name":"speed1","salary":null}
-{"name":"speed2","salary":None}
-{"name":"speed3","salary":""}
+
 
