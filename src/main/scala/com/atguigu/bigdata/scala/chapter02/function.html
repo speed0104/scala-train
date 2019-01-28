@@ -1,0 +1,16 @@
+<script>
+
+    function f1() {
+        alert("f1 ...");
+    }
+
+    function f2() {
+        return f1
+    }
+
+    //var v1 = f1
+    var v2 = f2
+
+    v2()()
+
+</script>
