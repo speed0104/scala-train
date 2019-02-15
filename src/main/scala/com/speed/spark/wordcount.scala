@@ -17,7 +17,7 @@ object wordcount {
     sortedcordcount.foreach{ x=> println(x._1 + " appears " + x._2 + " times.")}
     sortedcordcount.cache()
     sortedcordcount.count()
-
+    sc.stop()
   }
 
 }
