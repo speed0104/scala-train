@@ -1,15 +1,11 @@
-package com.speed.spark
+package com.speed.spark.mytest
 
-import com.speed.spark.ChangeTest.parseDouble
-import com.speed.spark.RDDTest.getClass
+import org.apache.spark.SparkConf
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.mllib.stat.Statistics
 import org.apache.spark.sql.expressions.{MutableAggregationBuffer, UserDefinedAggregateFunction}
 import org.apache.spark.sql.types._
-import org.apache.spark.sql.{Row, SQLContext, SparkSession}
-import org.apache.spark.{SparkConf, SparkContext}
-
-import scala.collection.mutable.ListBuffer
+import org.apache.spark.sql.{Row, SparkSession}
 
 object UDFTest {
 

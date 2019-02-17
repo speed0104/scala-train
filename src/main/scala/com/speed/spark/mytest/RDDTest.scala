@@ -1,7 +1,6 @@
-package com.speed.spark
+package com.speed.spark.mytest
 
 import org.apache.spark.{SparkConf, SparkContext}
-
 
 object RDDTest {
 

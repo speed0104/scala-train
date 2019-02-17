@@ -1,9 +1,9 @@
-package com.speed.spark
+//package com.speed.spark.mytest
 
-object ChangeTest {
+//object ChangeTest {
 
 
-def parseDouble(s: String): Option[Double] = try { Some(s.toDouble) } catch { case _ => None }
+//def parseDouble(s: String): Option[Double] = try { Some(s.toDouble) } catch { case _ => None }
 
 
 //def parse[T: ParseOp](s: String): Option[T] = try { Some(implicitly[ParseOp[T]].op(s)) }  catch {case _ => None}
@@ -14,18 +14,18 @@ def parseDouble(s: String): Option[Double] = try { Some(s.toDouble) } catch { ca
 //implicit val popLong = ParseOp[Long](_.toLong)
 //implicit val popFloat = ParseOp[Float](_.toFloat)
 
-  def main(args: Array[String]): Unit = {
+//  def main(args: Array[String]): Unit = {
 
 
-    val dd02="0.234"
+//    val dd02="0.234"
 //    println(dd02.isInstanceOf[String])   // 判断是否为String类型
 
-    val eed = parseDouble(dd02) match {            //正确的方式
-      case Some(t)=>t
-      case None=>None
-    }
+//    val eed = parseDouble(dd02) match {            //正确的方式
+//      case Some(t)=>t
+//      case None=>None
+//    }
 
-    println(eed.getClass)
+//    println(eed.getClass)
 
 //    println(parse[Double](dd02))         // 正确的转换方式
 
@@ -36,9 +36,9 @@ def parseDouble(s: String): Option[Double] = try { Some(s.toDouble) } catch { ca
 
 
 
-  }
+//  }
 
 
 
 
-}
+//}
