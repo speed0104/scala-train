@@ -6,8 +6,8 @@
     <version>1.0</version>
     <inceptionYear>2008</inceptionYear>
     <properties>
-        <scala.version>2.11.8</scala.version>
-        <spark.version>2.3.0</spark.version>
+        <scala.version>2.10.5</scala.version>
+        <spark.version>1.6.0</spark.version>
     </properties>
 
     <!--<repositories>-->
@@ -40,18 +40,23 @@
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-core_2.11</artifactId>
-            <version>${spark.version}</version>
+            <artifactId>spark-core_2.10</artifactId>
+            <version>1.6.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-sql_2.11</artifactId>
-            <version>${spark.version}</version>
+            <artifactId>spark-sql_2.10</artifactId>
+            <version>1.6.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-mllib_2.11</artifactId>
-            <version>${spark.version}</version>
+            <artifactId>spark-hive_2.10</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-mllib_2.10</artifactId>
+            <version>1.6.0</version>
         </dependency>
         <!--<dependency>-->
         <!--<groupId>junit</groupId>-->
