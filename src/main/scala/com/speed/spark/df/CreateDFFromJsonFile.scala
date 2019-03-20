@@ -22,7 +22,7 @@ object CreateDFFromJsonFile {
     df.select(df.col("name")).show()
     //select name from table where age>19
     df.select(df.col("name"),df.col("age")).where(df.col("age").gt(19)).show()
-    //select count(*) from table group by age
+    //select count(*) from table gcccroup by age
     df.groupBy(df.col("age")).count().show();
      
     /**

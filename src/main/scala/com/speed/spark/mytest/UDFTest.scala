@@ -1,3 +1,4 @@
+/*
 package com.speed.spark.mytest
 
 import org.apache.spark.SparkConf
@@ -243,4 +244,4 @@ class AverageVariance extends UserDefinedAggregateFunction {
     case _ => None
   }
 
-}
+}*/
