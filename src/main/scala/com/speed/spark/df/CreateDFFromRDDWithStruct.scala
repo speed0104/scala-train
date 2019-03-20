@@ -16,7 +16,7 @@ object CreateDFFromRDDWithStruct {
     conf.setMaster("local").setAppName("rddStruct")
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
-    val lineRDD = sc.textFile("../scala-train/person.txt")
+    val lineRDD = sc.textFile("data/person.txt")
     val rowRDD = lineRDD.map { x => {
       val split = x.split(",")
       RowFactory.create(split(0),split(1),Integer.valueOf(split(2)))

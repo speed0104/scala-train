@@ -11,7 +11,7 @@ object CreateDFFromParquet {
     conf.setMaster("local").setAppName("parquet")
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
-    val jsonRDD = sc.textFile("../scala-train/employees.json")
+    val jsonRDD = sc.textFile("data/employees.json")
     val df = sqlContext.read.json(jsonRDD)
     df.show()
     /**

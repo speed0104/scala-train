@@ -15,7 +15,7 @@ object CreateDFFromRDDWithReflect {
     conf.setMaster("local").setAppName("rddreflect")
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
-    val lineRDD = sc.textFile("../scala-train/person.txt")
+    val lineRDD = sc.textFile("data/person.txt")
     lineRDD.foreach(println)
 
     /**

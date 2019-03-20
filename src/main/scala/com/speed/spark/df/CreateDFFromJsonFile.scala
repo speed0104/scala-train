@@ -11,7 +11,7 @@ object CreateDFFromJsonFile {
     
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
-    val df = sqlContext.read.json("../scala-train/employees.json")
+    val df = sqlContext.read.json("data/employees.json")
 //    val df1 = sqlContext.read.format("json").load("sparksql/json")
     
 //    val rdd = df.rdd
