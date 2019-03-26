@@ -17,13 +17,13 @@ object CreateDFFromHive {
     val hiveContext = new HiveContext(sc)
     hiveContext.sql("use test")
     hiveContext.sql("drop table if exists student_infos")
-
-//    val df1 = hiveContext.sql("select * from drv_info limit 10")
-
-//    df1.show()
-
     hiveContext.sql("create table if not exists student_infos (name string,age int) row format  delimited fields terminated by '\t' stored as textfile")
-        hiveContext.sql("load data local inpath 'data/student_infos.txt' into table student_infos")
+
+    val df1 = hiveContext.sql("select * from drv_info limit 10")
+    df1.show()
+
+
+    //    hiveContext.sql("load data local inpath 'data/student_infos.txt' into table student_infos")
     //
     //    val df = hiveContext.read.json("data/employees.json")
     //    df.write.mode(SaveMode.Overwrite).saveAsTable("good_student_infos")
