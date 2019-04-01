@@ -14,39 +14,39 @@ object CreateDFFromMysql {
     val sc = new SparkContext(conf)
 		val sqlContext = new SQLContext(sc)
 		/**
-		 * 第一种方式读取Mysql数据库表创建DF
+		 * 第一种方式读取Postgresql数据库表创建DF
 		 */
-		val options = new HashMap[String,String]();
-		options.put("url", "jdbc:mysql://192.168.100.111:3306/spark")
-		options.put("driver","com.mysql.jdbc.Driver")
-		options.put("user","root")
-		options.put("password", "1234")
-		options.put("dbtable","person")
+/*		val options = new HashMap[String,String]();
+		options.put("url", "jdbc:postgresql://10.109.46.33/testing")
+		options.put("driver","org.postgresql.Driver")
+		options.put("user","bluelink")
+		options.put("password", "bluelink")
+		options.put("dbtable","users")
 		val person = sqlContext.read.format("jdbc").options(options).load()
 		person.show()
-		person.registerTempTable("person")
+		person.registerTempTable("person")*/
 		/**
-		 * 第二种方式读取Mysql数据库表创建DF
+		 * 第二种方式读取Postgresql数据库表创建DF
 		 */
 		val reader = sqlContext.read.format("jdbc")
-		reader.option("url", "jdbc:mysql://192.168.100.111:3306/spark")
-		reader.option("driver","com.mysql.jdbc.Driver")
-		reader.option("user","root")
-		reader.option("password","1234")
-		reader.option("dbtable", "score")
-		val score = reader.load()
-		score.show()
-		score.registerTempTable("score")
-		val result = sqlContext.sql("select person.id,person.name,score.score from person,score where person.name = score.name")
+		reader.option("url", "jdbc:postgresql://10.109.46.33/testing")
+		reader.option("driver","org.postgresql.Driver")
+		reader.option("user","bluelink")
+		reader.option("password","bluelink")
+		reader.option("dbtable", "users")
+		val users = reader.load()
+		users.show()
+		users.registerTempTable("test_users")
+		val result = sqlContext.sql("select * from test_users limit 10")
 		result.show()
 		/**
 		 * 将数据写入到Mysql表中
 		 */
 		val properties = new Properties()
-		properties.setProperty("user", "root")
-		properties.setProperty("password", "1234")
-		result.write.mode(SaveMode.Append).jdbc("jdbc:mysql://192.168.100.111:3306/spark", "result", properties)
-		
+		properties.setProperty("user", "bluelink")
+		properties.setProperty("password", "bluelink")
+		result.write.mode(SaveMode.Append).jdbc("jdbc:postgresql://10.109.46.33/testing", "test_users", properties)
+
 		sc.stop()
   }
 }

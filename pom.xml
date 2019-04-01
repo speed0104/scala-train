@@ -58,6 +58,11 @@
             <artifactId>spark-hive_2.11</artifactId>
             <version>${spark.version}</version>
         </dependency>
+<!--        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.2</version>
+        </dependency>-->
         <!--<dependency>-->
         <!--<groupId>junit</groupId>-->
         <!--<artifactId>junit</artifactId>-->
@@ -121,6 +126,7 @@
     <!--<configuration>-->
     <!--<scalaVersion>${scala.version}</scalaVersion>-->
     <!--</configuration>-->
+    <!--<extdirs>lib</extdirs>--><!--指定外部lib-->
     <!--</plugin>-->
     <!--</plugins>-->
     <!--</reporting>-->

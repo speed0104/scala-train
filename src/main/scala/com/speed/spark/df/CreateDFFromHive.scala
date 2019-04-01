@@ -35,9 +35,20 @@ object CreateDFFromHive {
      */
     df.write.mode(SaveMode.Overwrite).saveAsTable("good_student_infos")*/
 
-    val df = hiveContext.read.json("data/employees.json")
-    df.write.mode(SaveMode.Overwrite).saveAsTable("employees")
-    
+//    val df = hiveContext.read.json("data/employees.json")
+//    df.write.mode(SaveMode.Overwrite).saveAsTable("employees")
+
+
+
+    val df1 = hiveContext.sql("select * from drv_info limit 100")
+
+//    val df2 = hiveContext.sql("select * from drv_info limit 1")
+
+    val df3 = df1.unionAll(df1)
+
+    println(df3.dropDuplicates().count())
+
+
     sc.stop()
   }
 }
