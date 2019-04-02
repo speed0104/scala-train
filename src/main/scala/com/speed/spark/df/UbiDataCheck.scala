@@ -26,6 +26,7 @@ object UbiDataCheck {
     val df = hiveContext.sql(inputsql)
 
     println("去重前： " + df.count())
+    println("去重前分区数" + df.rdd.getNumPartitions)
 //    df.dropDuplicates(Seq("vin","ign_on_time")).show(12,false)
 //    df.dropDuplicates().show(12,false)
     df.show(5,false)
@@ -48,7 +49,14 @@ object UbiDataCheck {
     * 5、q_speed 为255的数据去掉
     * 6、速度大于220的行程数据去掉
     * */
-    val distinctdf: DataFrame = dfCached.dropDuplicates()
+
+
+    val repatitiondf: DataFrame = dfCached.repartition(200)
+
+    val distinctdf: DataFrame = repatitiondf.dropDuplicates()
+
+    println("去重后： " + distinctdf.count())
+    println("去重后分区数" + distinctdf.rdd.getNumPartitions)
 
     val nstatuedf: DataFrame = distinctdf
       .withColumn("nStatue",when(col("n") > 0, 1).otherwise(0))
