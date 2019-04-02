@@ -1,7 +1,9 @@
 package com.speed.spark.df
 
+import java.util.Properties
+
 import org.apache.spark.{SparkConf, SparkContext}
-import org.apache.spark.sql.{DataFrame, SQLContext}
+import org.apache.spark.sql.{DataFrame, SQLContext, SaveMode}
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.hive.HiveContext
 import org.apache.spark.sql.types.{IntegerType, LongType, StringType, TimestampType}
@@ -11,7 +13,7 @@ object UbiDataCheck {
   def main(args: Array[String]): Unit = {
 
     val conf = new SparkConf()
-
+    val inputsql = args(0)
     //    要在集群上提交需要去掉Local
     conf.setMaster("local").setAppName("UbiDataCheck")
 
@@ -20,8 +22,10 @@ object UbiDataCheck {
     val hiveContext = new HiveContext(sc)
     hiveContext.sql("use hkgc_tms_mstr")
 
-    val df = hiveContext.sql("select vin,ign_on_time,n,vs,t,sas_angle,latitude,longitude from vcrm20_rt_log where p_date = '20181217' and vin = 'LBES6AFD3JW011593' and ign_on_time = '2018-12-17 08:09:31.322'")
+//    val df = hiveContext.sql("select vin,ign_on_time,n,vs,t,sas_angle,latitude,longitude from vcrm20_rt_log where p_date = '20190103' and vin = 'LBES6AFD8JW008964' and ign_on_time = '2019-01-03 09:01:29.585'")
+    val df = hiveContext.sql(inputsql)
 
+    println("去重前： " + df.count())
 //    df.dropDuplicates(Seq("vin","ign_on_time")).show(12,false)
 //    df.dropDuplicates().show(12,false)
     df.show(5,false)
@@ -45,8 +49,6 @@ object UbiDataCheck {
     * 6、速度大于220的行程数据去掉
     * */
     val distinctdf: DataFrame = dfCached.dropDuplicates()
-
-//    distinctdf.select("vin","ign_on_time").dropDuplicates().show(12,false)
 
     val nstatuedf: DataFrame = distinctdf
       .withColumn("nStatue",when(col("n") > 0, 1).otherwise(0))
@@ -106,10 +108,14 @@ object UbiDataCheck {
       .select("vin", "start_time", "start_gps", "end_time", "end_gps", "drive_duration", "drive_mileage",
         "acc_count", "break_count", "sharp_turn_count", "avg_speed", "q_speed", "speed0_40", "speed40_80", "speed80_100", "speedover120", "speed_variance")
 
-
     dfoutput.show()
 
+    val properties = new Properties()
+    properties.setProperty("user", "bluelink")
+    properties.setProperty("password", "bluelink")
+    dfoutput.write.mode(SaveMode.Append).jdbc("jdbc:postgresql://10.109.46.33/testing", "ubi_data", properties)
 
+    sc.stop()
 
 
   }
