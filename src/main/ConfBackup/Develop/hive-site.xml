@@ -4,7 +4,7 @@
 <configuration>
   <property>
     <name>hive.metastore.uris</name>
-    <value>thrift://pb00m0001.pcn0c02.hcloud.io:9083</value>
+    <value>thrift://dd00m0001.dcn0c05.hcloud.io:9083</value>
   </property>
   <property>
     <name>hive.metastore.client.socket.timeout</name>
@@ -137,11 +137,11 @@
   </property>
   <property>
     <name>spark.executor.memory</name>
-    <value>36507222016</value>
+    <value>36845800652</value>
   </property>
   <property>
     <name>spark.driver.memory</name>
-    <value>10737418240</value>
+    <value>11596411699</value>
   </property>
   <property>
     <name>spark.executor.cores</name>
@@ -153,7 +153,7 @@
   </property>
   <property>
     <name>spark.yarn.executor.memoryOverhead</name>
-    <value>6144</value>
+    <value>6200</value>
   </property>
   <property>
     <name>spark.dynamicAllocation.enabled</name>
@@ -169,7 +169,7 @@
   </property>
   <property>
     <name>spark.dynamicAllocation.maxExecutors</name>
-    <value>63</value>
+    <value>23</value>
   </property>
   <property>
     <name>hive.metastore.execute.setugi</name>
@@ -181,7 +181,7 @@
   </property>
   <property>
     <name>hive.zookeeper.quorum</name>
-    <value>pb00m0002.pcn0c02.hcloud.io,pb00m0001.pcn0c02.hcloud.io,pb00d0001.pcn0c02.hcloud.io</value>
+    <value>dd00m0002.dcn0c05.hcloud.io,dd00m0001.dcn0c05.hcloud.io,dd00d0001.dcn0c05.hcloud.io</value>
   </property>
   <property>
     <name>hive.zookeeper.client.port</name>
@@ -189,7 +189,7 @@
   </property>
   <property>
     <name>hbase.zookeeper.quorum</name>
-    <value>pb00m0002.pcn0c02.hcloud.io,pb00m0001.pcn0c02.hcloud.io,pb00d0001.pcn0c02.hcloud.io</value>
+    <value>dd00m0002.dcn0c05.hcloud.io,dd00m0001.dcn0c05.hcloud.io,dd00d0001.dcn0c05.hcloud.io</value>
   </property>
   <property>
     <name>hbase.zookeeper.property.clientPort</name>
@@ -197,7 +197,7 @@
   </property>
   <property>
     <name>hive.zookeeper.namespace</name>
-    <value>hive_zookeeper_namespace_hive2</value>
+    <value>hive_zookeeper_namespace_hive</value>
   </property>
   <property>
     <name>hive.cluster.delegation.token.store.class</name>
@@ -205,7 +205,7 @@
   </property>
   <property>
     <name>hive.server2.enable.doAs</name>
-    <value>false</value>
+    <value>true</value>
   </property>
   <property>
     <name>hive.server2.use.SSL</name>
@@ -214,10 +214,6 @@
   <property>
     <name>spark.shuffle.service.enabled</name>
     <value>true</value>
-  </property>
-  <property>
-    <name>hive.server2.authentication</name>
-    <value>LDAP</value>
   </property>
   <property>
     <name>hive.resultset.use.unique.column.names</name>

@@ -16,43 +16,43 @@
   </property>
   <property>
     <name>ha.zookeeper.quorum</name>
-    <value>pb00d0001.pcn0c02.hcloud.io:2181,pb00m0001.pcn0c02.hcloud.io:2181,pb00m0002.pcn0c02.hcloud.io:2181</value>
+    <value>dd00d0001.dcn0c05.hcloud.io:2181,dd00m0001.dcn0c05.hcloud.io:2181,dd00m0002.dcn0c05.hcloud.io:2181</value>
   </property>
   <property>
     <name>dfs.ha.namenodes.nameservice1</name>
-    <value>namenode69,namenode79</value>
+    <value>namenode28,namenode33</value>
   </property>
   <property>
-    <name>dfs.namenode.rpc-address.nameservice1.namenode69</name>
-    <value>pb00m0001.pcn0c02.hcloud.io:8020</value>
+    <name>dfs.namenode.rpc-address.nameservice1.namenode28</name>
+    <value>dd00m0001.dcn0c05.hcloud.io:8020</value>
   </property>
   <property>
-    <name>dfs.namenode.servicerpc-address.nameservice1.namenode69</name>
-    <value>pb00m0001.pcn0c02.hcloud.io:8022</value>
+    <name>dfs.namenode.servicerpc-address.nameservice1.namenode28</name>
+    <value>dd00m0001.dcn0c05.hcloud.io:8022</value>
   </property>
   <property>
-    <name>dfs.namenode.http-address.nameservice1.namenode69</name>
-    <value>pb00m0001.pcn0c02.hcloud.io:50070</value>
+    <name>dfs.namenode.http-address.nameservice1.namenode28</name>
+    <value>dd00m0001.dcn0c05.hcloud.io:50070</value>
   </property>
   <property>
-    <name>dfs.namenode.https-address.nameservice1.namenode69</name>
-    <value>pb00m0001.pcn0c02.hcloud.io:50470</value>
+    <name>dfs.namenode.https-address.nameservice1.namenode28</name>
+    <value>dd00m0001.dcn0c05.hcloud.io:50470</value>
   </property>
   <property>
-    <name>dfs.namenode.rpc-address.nameservice1.namenode79</name>
-    <value>pb00m0002.pcn0c02.hcloud.io:8020</value>
+    <name>dfs.namenode.rpc-address.nameservice1.namenode33</name>
+    <value>dd00m0002.dcn0c05.hcloud.io:8020</value>
   </property>
   <property>
-    <name>dfs.namenode.servicerpc-address.nameservice1.namenode79</name>
-    <value>pb00m0002.pcn0c02.hcloud.io:8022</value>
+    <name>dfs.namenode.servicerpc-address.nameservice1.namenode33</name>
+    <value>dd00m0002.dcn0c05.hcloud.io:8022</value>
   </property>
   <property>
-    <name>dfs.namenode.http-address.nameservice1.namenode79</name>
-    <value>pb00m0002.pcn0c02.hcloud.io:50070</value>
+    <name>dfs.namenode.http-address.nameservice1.namenode33</name>
+    <value>dd00m0002.dcn0c05.hcloud.io:50070</value>
   </property>
   <property>
-    <name>dfs.namenode.https-address.nameservice1.namenode79</name>
-    <value>pb00m0002.pcn0c02.hcloud.io:50470</value>
+    <name>dfs.namenode.https-address.nameservice1.namenode33</name>
+    <value>dd00m0002.dcn0c05.hcloud.io:50470</value>
   </property>
   <property>
     <name>dfs.replication</name>
@@ -64,7 +64,7 @@
   </property>
   <property>
     <name>dfs.client.use.datanode.hostname</name>
-    <value>false</value>
+    <value>true</value>
   </property>
   <property>
     <name>fs.permissions.umask-mode</name>
@@ -72,7 +72,7 @@
   </property>
   <property>
     <name>dfs.namenode.acls.enabled</name>
-    <value>true</value>
+    <value>false</value>
   </property>
   <property>
     <name>dfs.client.use.legacy.blockreader</name>

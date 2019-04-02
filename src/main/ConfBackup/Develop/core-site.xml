@@ -68,7 +68,7 @@
   </property>
   <property>
     <name>hadoop.proxyuser.hive.groups</name>
-    <value>hive,hue</value>
+    <value>*</value>
   </property>
   <property>
     <name>hadoop.proxyuser.hue.hosts</name>
@@ -112,7 +112,7 @@
   </property>
   <property>
     <name>net.topology.script.file.name</name>
-    <value>/etc/hadoop/conf.cloudera.yarn2/topology.py</value>
+    <value>/etc/hadoop/conf.cloudera.yarn/topology.py</value>
   </property>
   <property>
     <name>io.file.buffer.size</name>
