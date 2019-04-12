@@ -5,13 +5,14 @@ import java.util.Properties
 import org.apache.spark.sql.{SQLContext, SaveMode}
 import org.apache.spark.sql.hive.HiveContext
 import org.apache.spark.{SparkConf, SparkContext}
+import scala.io.Source
 
 object HiveToPostgre {
 
   def main(args: Array[String]): Unit = {
     val conf = new SparkConf()
 //    要在集群上提交需要去掉Local
-//    conf.setMaster("local").setAppName("HiveSource")
+    conf.setMaster("local").setAppName("HiveSource")
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
 
@@ -22,11 +23,29 @@ object HiveToPostgre {
 //    hiveContext.sql("use test")
 
     //查询传入的SQL
-    val inputsql = args(0)
+    val inputpath = args(0)
 
-    val df = hiveContext.sql(inputsql)
+      println(inputpath)
 
-    df.show()
+      //文件读取
+      val file=Source.fromFile(inputpath)
+
+      var sql_string = ""
+
+      for(line <- file.getLines)
+      {
+          sql_string += " "  + line
+
+      }
+
+
+      println(sql_string)
+
+      file.close
+
+    val df = hiveContext.sql(sql_string)
+
+    df.show(10,false)
 
 /*    val reader = sqlContext.read.format("jdbc")
     reader.option("url", "jdbc:postgresql://10.109.46.33/vcrm20")
