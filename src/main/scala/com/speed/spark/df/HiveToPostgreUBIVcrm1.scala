@@ -46,11 +46,11 @@ object HiveToPostgreUBIVcrm1 {
 
     val usql = "select * from hkgc_tms_mstr.vcrm10_rt_log where p_date = '"+  date_args +"'"
 
-//    println(usql)
+    println(usql)
 
     val df = hiveContext.sql(usql)
 
-//    df.show(10,false)
+    df.show(10,false)
 
     val cache_df = df.cache()
 
@@ -139,7 +139,7 @@ object HiveToPostgreUBIVcrm1 {
       """.stripMargin
     )
 
-//    ubidf.show(10,false)
+    ubidf.show(10,false)
 
 
 /*    val reader = sqlContext.read.format("jdbc")
