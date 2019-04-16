@@ -1,3 +1,3 @@
 select * from
-svc_18.bluelink_dtc
+vcrm20_rt_log
 limit 10
