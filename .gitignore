@@ -1,3 +1,5 @@
 /target
 /.idea
 /spark-warehouse
+/src/main/scala/com/speed/scala/mydoc
+/src/main/scala/com/speed/scala/scala-docs-2.11.8
