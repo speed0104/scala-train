@@ -9,7 +9,7 @@ import org.apache.spark.sql.functions.udf
 
 import scala.io.Source
 
-object Vcrm20varify {
+object Vcrm10varify {
 
     def main(args: Array[String]): Unit = {
 
