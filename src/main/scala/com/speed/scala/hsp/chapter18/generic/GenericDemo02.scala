@@ -1,17 +1,17 @@
 package com.atguigu.chapter18.generic
 
-import com.atguigu.temp.generic.SeasonEnum
+//import com.atguigu.temp.generic.SeasonEnum
 
 object GenericDemo02 {
   def main(args: Array[String]): Unit = {
 
     //使用
-    val class01 = new EnglishClass[SeasonEnum.SeasonEnum,String,String](SeasonEnum.spring,"0705班","高级班")
-    println("class01 " + class01.classSesaon + " " + class01.className + class01.classType)
+//    val class01 = new EnglishClass[SeasonEnum.SeasonEnum,String,String](SeasonEnum.spring,"0705班","高级班")
+//    println("class01 " + class01.classSesaon + " " + class01.className + class01.classType)
 
-    val class02 = new EnglishClass[SeasonEnum.SeasonEnum,String,Int](SeasonEnum.spring,"0707班",1)
+//    val class02 = new EnglishClass[SeasonEnum.SeasonEnum,String,Int](SeasonEnum.spring,"0707班",1)
 
-    println("class02 " + class02.classSesaon + " " + class02.className + class02.classType)
+//    println("class02 " + class02.classSesaon + " " + class02.className + class02.classType)
   }
 }
 
