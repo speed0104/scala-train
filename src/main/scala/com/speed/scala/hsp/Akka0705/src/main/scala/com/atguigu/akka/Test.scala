@@ -1,6 +1,6 @@
 package com.atguigu.akka
 
-import com.typesafe.config.ConfigFactory
+//import com.typesafe.config.ConfigFactory
 
 object Test {
   def main(args: Array[String]): Unit = {
