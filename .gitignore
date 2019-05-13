@@ -4,3 +4,4 @@
 /src/main/scala/com/speed/scala/mydoc
 /src/main/scala/com/speed/scala/scala-docs-2.11.8
 scala-train.iml
+*.iml
