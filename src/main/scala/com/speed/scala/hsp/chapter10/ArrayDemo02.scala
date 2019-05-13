@@ -16,7 +16,7 @@ object ArrayDemo02 {
 
     //可以使用我们传统的方式遍历，使用下标的方式遍历
     for (index <- 0 until  arr02.length) {
-      printf("arr02[%d]=%s", index , arr02(index) + "\t")
+      println(arr02(index))
     }
 
   }
