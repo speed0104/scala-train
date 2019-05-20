@@ -7,7 +7,7 @@ import org.apache.hadoop.hive.conf.HiveConf
 import org.apache.spark.sql.{SQLContext, SaveMode}
 
 object CreateDFFromHive {
-  def main(args: Array[String]): Unit = {
+    def main(args: Array[String]): Unit = {
     val conf = new SparkConf()
     conf.setMaster("local").setAppName("HiveSource")
     val sc = new SparkContext(conf)

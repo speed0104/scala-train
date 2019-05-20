@@ -30,6 +30,9 @@ object Array22ArrayBuffer {
     //3. newArr本身没变化
     val newArr2 = newArr.toBuffer
     newArr2.append(123)
+    newArr2.append(456)
+    newArr2.append(222)
+    newArr2.append(333)
     println(newArr2)
 //    //案例演示+说明
 
