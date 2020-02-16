@@ -11,7 +11,7 @@ object Demo03 {
     val age = 7
     val res = if (age > 20) {
       println("hello age > 20")
-      9 + 10
+//      9 + 10
       "yes ok"
     } else {
       7

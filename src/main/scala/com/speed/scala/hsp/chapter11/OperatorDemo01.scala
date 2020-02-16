@@ -15,7 +15,7 @@ object OperatorDemo01 {
 
     println("monster.money=" + monster.money) // 20
 
-    println(monster++)
+//    println(monster++)
     println(monster.++)
     println("monster.money=" + monster.money) // 22
 

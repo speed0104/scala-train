@@ -10,13 +10,13 @@ object ArrayBuffer2JavaList {
     /*
     implicit def bufferAsJavaList[A](b : scala.collection.mutable.Buffer[A]) : java.util.List[A] = { /* compiled code */ }
      */
-    import scala.collection.JavaConversions.bufferAsJavaList
+//    import scala.collection.JavaConversions.bufferAsJavaList
     //对象 ProcessBuilder ， 因为 这里使用到上面的  bufferAsJavaList
-    val javaArr = new ProcessBuilder(arr) //为什么可以这样使用?
+//    val javaArr = new ProcessBuilder(arr) //为什么可以这样使用?
     // 这里arrList 就是java中的List
-    val arrList = javaArr.command()
+//    val arrList = javaArr.command()
 
-    println(arrList) //输出 [1, 2, 3]
+//    println(arrList) //输出 [1, 2, 3]
 
 
     //java的List 转成 scala的 ArrayBuffer
@@ -25,14 +25,14 @@ object ArrayBuffer2JavaList {
     /*
     implicit def asScalaBuffer[A](l : java.util.List[A]) : scala.collection.mutable.Buffer[A] = { /* compiled code */ }
      */
-    import scala.collection.JavaConversions.asScalaBuffer
+//    import scala.collection.JavaConversions.asScalaBuffer
     import scala.collection.mutable
     // java.util.List ==> Buffer
-    val scalaArr: mutable.Buffer[String] = arrList
-    scalaArr.append("jack")
-    scalaArr.append("tom")
-    scalaArr.remove(0)
-    println(scalaArr) // (2,3,jack,tom)
+//    val scalaArr: mutable.Buffer[String] = arrList
+//    scalaArr.append("jack")
+//    scalaArr.append("tom")
+//    scalaArr.remove(0)
+//    println(scalaArr) // (2,3,jack,tom)
 
   }
 }
