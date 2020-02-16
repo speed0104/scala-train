@@ -1,4 +1,4 @@
-package com.atguigu.chapter01.test;
+package hsp.chapter01.test;
 
 //我们可以理解scala 在运行时，做了一个包装.
 public class TestScala {
@@ -20,7 +20,7 @@ final class TestScala$
 
     public void main(String[] args)
     {
-        System.out.println("hello,scala, idea...");
+        System.out.println("hello,sala, idea...");
     }
     //private TestScala$() { MODULE$ = this; }
 
