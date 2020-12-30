@@ -7,3 +7,9 @@ scala-train.iml
 *.iml
 scala-train.iml
 scala-train.iml
+.DS_Store
+src/.DS_Store
+src/main/.DS_Store
+src/main/scala/.DS_Store
+src/main/scala/com/.DS_Store
+src/main/scala/com/speed/.DS_Store
